@@ -1,23 +1,31 @@
 package com.affinityforapps.popularmovies.model;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.util.Date;
 
 public final class Movie {
     private int id;
     private String title;
-    private String synopsis;
-    private Date releaseDate;
-    private double voteAverage;
-    private String relativeImageUrl;
+    private String overview;
 
-    public Movie(int id, String title, String synopsis, Date releaseDate, double voteAverage,
-                 String relativeImageUrl) {
+    @SerializedName("release_date")
+    private Date releaseDate;
+
+    @SerializedName("vote_average")
+    private double voteAverage;
+
+    @SerializedName("poster_path")
+    private String posterPath;
+
+    public Movie(int id, String title, String overview, Date releaseDate, double voteAverage,
+                 String posterPath) {
         this.id = id;
         this.title = title;
-        this.synopsis = synopsis;
+        this.overview = overview;
         this.releaseDate = releaseDate;
         this.voteAverage = voteAverage;
-        this.relativeImageUrl = relativeImageUrl;
+        this.posterPath = posterPath;
     }
 
     public int getId() {
@@ -28,8 +36,8 @@ public final class Movie {
         return title;
     }
 
-    public String getSynopsis() {
-        return synopsis;
+    public String getOverview() {
+        return overview;
     }
 
     public Date getReleaseDate() {
@@ -41,6 +49,18 @@ public final class Movie {
     }
 
     public String getImageUrl() {
-        return "http://image.tmdb.org/t/p/w185" + relativeImageUrl;
+        return "http://image.tmdb.org/t/p/w185" + posterPath;
+    }
+
+    @Override
+    public String toString() {
+        return "Movie{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", overview='" + overview + '\'' +
+                ", releaseDate=" + releaseDate +
+                ", voteAverage=" + voteAverage +
+                ", posterPath='" + posterPath + '\'' +
+                '}';
     }
 }
