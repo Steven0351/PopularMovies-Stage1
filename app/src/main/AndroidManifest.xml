@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MovieDetailActivity"></activity>
+        <!--Up button was not added because it would not retain the savedInstanceState bundle-->
+        <activity android:name=".MovieDetailActivity" />
     </application>
 
 </manifest>

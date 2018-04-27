@@ -1,7 +1,9 @@
 package com.affinityforapps.popularmovies;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -35,10 +37,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
         notifyDataSetChanged();
     }
 
+    public List<Movie> getMovies() {
+        return mMovies;
+    }
+
     //region RecyclerView.Adapter implementation
     @NonNull
     @Override
     public MovieAdapterViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.card_movie, parent, false);
         return new MovieAdapterViewHolder(view);
@@ -46,13 +53,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapterViewHolder holder, int position) {
-        Movie movie = mMovies.get(position);
-
-        holder.mMovieTitleTextView.setText(movie.getTitle());
-
-        Picasso.get()
-                .load(movie.getImageUrl())
-                .into(holder.mPosterImageView);
+        holder.bindMovie(mMovies.get(position));
     }
 
     @Override
@@ -65,14 +66,32 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
     }
     //endregion
 
-    class MovieAdapterViewHolder extends RecyclerView.ViewHolder {
-        final ImageView mPosterImageView;
-        final TextView mMovieTitleTextView;
+    class MovieAdapterViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+        private ImageView mPosterImageView;
+        private TextView mMovieTitleTextView;
+        private Movie mMovie;
 
         MovieAdapterViewHolder(View itemView) {
             super(itemView);
+            itemView.setOnClickListener(this);
             mPosterImageView = itemView.findViewById(R.id.iv_movie);
             mMovieTitleTextView = itemView.findViewById(R.id.tv_movie_title);
+        }
+
+        void bindMovie(Movie movie) {
+            mMovie = movie;
+            mMovieTitleTextView.setText(movie.getTitle());
+            Picasso.get()
+                    .load(movie.getImageUrl())
+                    .into(mPosterImageView);
+        }
+
+        @Override
+        public void onClick(View view) {
+            Log.i("onClick", "entered");
+            Intent intent = MovieDetailActivity.newIntent(view.getContext(), mMovie);
+            view.getContext().startActivity(intent);
+            Log.i("onClick", "exited");
         }
     }
 }

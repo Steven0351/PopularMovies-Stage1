@@ -1,10 +1,13 @@
 package com.affinityforapps.popularmovies.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 import java.util.Date;
 
-public final class Movie {
+public final class Movie implements Parcelable {
     private int id;
     private String title;
     private String overview;
@@ -26,6 +29,15 @@ public final class Movie {
         this.releaseDate = releaseDate;
         this.voteAverage = voteAverage;
         this.posterPath = posterPath;
+    }
+
+    private Movie(Parcel in) {
+        id = in.readInt();
+        title = in.readString();
+        overview = in.readString();
+        releaseDate = (Date) in.readSerializable();
+        voteAverage = in.readDouble();
+        posterPath = in.readString();
     }
 
     public int getId() {
@@ -63,4 +75,31 @@ public final class Movie {
                 ", posterPath='" + posterPath + '\'' +
                 '}';
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeInt(id);
+        parcel.writeString(title);
+        parcel.writeString(overview);
+        parcel.writeSerializable(releaseDate);
+        parcel.writeDouble(voteAverage);
+        parcel.writeString(posterPath);
+    }
+
+    public static final Parcelable.Creator<Movie> CREATOR = new Parcelable.Creator<Movie>() {
+        @Override
+        public Movie createFromParcel(Parcel parcel) {
+            return new Movie(parcel);
+        }
+
+        @Override
+        public Movie[] newArray(int i) {
+            return new Movie[0];
+        }
+    };
 }

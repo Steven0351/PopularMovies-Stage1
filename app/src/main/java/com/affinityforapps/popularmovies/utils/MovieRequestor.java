@@ -37,8 +37,16 @@ public class MovieRequestor implements NetworkResponseHandler {
         mMaxPages = 1;
     }
 
+    public void setCurrentPage(int currentPage) {
+        mCurrentPage = currentPage;
+    }
+
     public int getCurrentPage() {
         return mCurrentPage;
+    }
+
+    public void setMaxPages(int maxPages) {
+        mMaxPages = maxPages;
     }
 
     public int getMaxPages() {
@@ -47,16 +55,22 @@ public class MovieRequestor implements NetworkResponseHandler {
 
     public void performMovieRequest(SortIdentifier sortIdentifier, int pageNumber) {
         Uri uri = createUriFromSortIdentifier(sortIdentifier, pageNumber);
-        if (uri == null) return;
+        if (uri == null) {
+            return;
+        }
 
         Log.i("Request URI", uri.toString());
         StringRequest movieRequest = mNetworkManager
                 .fetchRequest(Request.Method.GET, uri.toString());
-        Volley.newRequestQueue(mContext).add(movieRequest);
+
+        Volley.newRequestQueue(mContext)
+                .add(movieRequest);
     }
 
     private Uri createUriFromSortIdentifier(SortIdentifier sortIdentifier, int pageNumber) {
-        if (pageNumber > mMaxPages) return null;
+        if (pageNumber > mMaxPages) {
+            return null;
+        }
 
         return Uri.parse(BASE_URL).buildUpon()
                 .appendPath(sortIdentifier.getIdentifier())
@@ -99,11 +113,11 @@ public class MovieRequestor implements NetworkResponseHandler {
             return mMovies;
         }
 
-        public int getCurrentPage() {
+        int getCurrentPage() {
             return mCurrentPage;
         }
 
-        public int getTotalPages() {
+        int getTotalPages() {
             return mTotalPages;
         }
     }

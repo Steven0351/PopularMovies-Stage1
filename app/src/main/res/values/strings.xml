@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">PopularMovies</string>
     <string name="poster_content_description">Movie Poster</string>
+    <string name="movie_average_vote">%s / 10</string>
+    <string name="app_bar_title">Sort By:</string>
+    <string name="sort_popular">Popular</string>
+    <string name="sort_top_rated">Top Rated</string>
+    <string name="network_error_message">No Network Connection</string>
+    <string name="retry_message">Retry</string>
 </resources>
