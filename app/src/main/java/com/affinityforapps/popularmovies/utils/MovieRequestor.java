@@ -2,7 +2,6 @@ package com.affinityforapps.popularmovies.utils;
 
 import android.content.Context;
 import android.net.Uri;
-import android.util.Log;
 
 import com.affinityforapps.popularmovies.model.Movie;
 import com.android.volley.Request;
@@ -59,7 +58,6 @@ public class MovieRequestor implements NetworkResponseHandler {
             return;
         }
 
-        Log.i("Request URI", uri.toString());
         StringRequest movieRequest = mNetworkManager
                 .fetchRequest(Request.Method.GET, uri.toString());
 
@@ -81,7 +79,6 @@ public class MovieRequestor implements NetworkResponseHandler {
 
     @Override
     public void handleJsonResponse(String jsonString) {
-        Log.i("JsonString", jsonString);
         Gson gson = new Gson();
 
         MovieResponse movieResponse = gson.fromJson(jsonString, MovieResponse.class);

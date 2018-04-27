@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -44,7 +43,6 @@ public class MovieDetailActivity extends AppCompatActivity {
     }
 
     private void setupUI() {
-        Log.i("setupUI", "entered");
         ImageView mPosterImageView = findViewById(R.id.iv_movie_detail_poster);
         TextView mReleaseDateTextView = findViewById(R.id.tv_release_date);
         TextView mRatingTextView = findViewById(R.id.tv_rating);

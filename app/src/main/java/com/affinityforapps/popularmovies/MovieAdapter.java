@@ -3,7 +3,6 @@ package com.affinityforapps.popularmovies;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -88,10 +87,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MovieAdapter
 
         @Override
         public void onClick(View view) {
-            Log.i("onClick", "entered");
             Intent intent = MovieDetailActivity.newIntent(view.getContext(), mMovie);
             view.getContext().startActivity(intent);
-            Log.i("onClick", "exited");
         }
     }
 }
